@@ -1,0 +1,54 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/18.
+ */
+public class LC_082_RemoveDuplicatesfromSortedList2 {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head==null||head.next==null){
+            return head;
+        }
+        ListNode node=head;
+        ListNode before=new ListNode(head.val);
+        head=before;
+        while (node!=null){
+            int sign=0;
+            while(node.next!=null&&node.next.val==node.val){
+                node=node.next;
+                sign++;
+            }
+            if(sign==0){
+                before.next=node;
+                before=node;
+            }
+            if(node.next==null){
+                before.next=null;
+                break;
+            }
+            node=node.next;
+        }
+        return head.next;
+    }
+
+    public ListNode answer(ListNode head) {
+        if(head == null || head.next == null)
+            return head;
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+
+        while (head.next != null && head.next.next != null) {
+            if (head.next.val == head.next.next.val) {
+                int val = head.next.val;
+                while (head.next != null && head.next.val == val) {
+                    head.next = head.next.next;
+                }
+            } else {
+                head = head.next;
+            }
+        }
+
+        return dummy.next;
+    }
+}
