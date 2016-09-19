@@ -1,0 +1,94 @@
+package LeetCode;
+
+/**
+ * Created by GJQ on 2016/8/31.
+ */
+public class LC_014_LongestCommonPrefix {
+
+    public String longestCommonPrefix(String[] strs) {
+        int length=strs.length;
+        if(length==0)
+            return "";
+        if(length==1)
+            return strs[0];
+        String temp=getCommonPrefix(strs[0],strs[1]);
+        for (int i = 2; i <length ; i++) {
+            if(temp.equals("")||temp.length()==0){
+               break;
+            }
+            temp=this.getCommonPrefix(temp,strs[i]);
+        }
+        return temp;
+    }
+
+    public String longestCommonPrefix2(String[] strs) {
+        if(strs.length==0)
+            return "";
+        while(strs.length>1){
+            int length=strs.length/2;
+            if(strs.length%2==1)length++;
+            String[] temp=new String[length];
+            for (int i = 0; i <length; i++) {
+                temp[i]=this.getCommonPrefix(strs[i],strs[strs.length-i-1]);
+            }
+            strs=temp;
+        }
+        return strs[0];
+    }
+
+    private String getCommonPrefix(String str1,String str2){
+        int length=str1.length()<str2.length()?str1.length():str2.length();
+        String str="";
+        for (int i = 0; i <length ; i++) {
+            if(!str1.startsWith(str2.substring(0,i+1))){
+                str=str1.substring(0,i);
+                break;
+            }
+            if(i==length-1){
+                str=str1.substring(0,i+1);
+            }
+        }
+        return str;
+    }
+
+    public String answer(String[] strs){
+        if(strs==null||strs.length==0){
+            return null;
+        }
+        String prefix=strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            int j=0;
+            while(j<prefix.length() && j<strs[i].length() && prefix.charAt(j)==strs[i].charAt(j)){
+                ++j;
+            }
+            if(prefix.equals("")||prefix.length()==0){
+                return "";
+            }
+            prefix=prefix.substring(0,j);
+        }
+        return prefix;
+    }
+
+    public String answerRecursion(String[] strs){
+        if(strs==null||strs.length==0){
+            return "";
+        }
+        return longestCommonPrefix(strs,0,strs.length-1);
+    }
+    private String longestCommonPrefix(String[] strs, int l, int r) {
+        if(l==r)return strs[l];
+        int mid=(l+r)/2;
+        String lcpLeft=longestCommonPrefix(strs,l,mid);
+        String lcpRight=longestCommonPrefix(strs,mid+1,r);
+        return commonPrefix(lcpLeft,lcpRight);
+    }
+
+    private String commonPrefix(String left,String right) {
+        int length=Math.min(left.length(),right.length());
+        for (int i = 0; i < length; i++) {
+            if(left.charAt(i)!=right.charAt(i))
+                return left.substring(0,i);
+        }
+        return left.substring(0,length);
+    }
+}
