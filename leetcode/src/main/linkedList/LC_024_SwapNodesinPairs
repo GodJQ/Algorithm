@@ -1,0 +1,38 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/14.
+ */
+public class LC_024_SwapNodesinPairs {
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode node = new ListNode(0);
+        node.next=head;
+        head=node;
+        while (node.next!=null&&node.next.next!=null){
+            ListNode temp1=node.next.next.next;
+            node.next.next.next=node.next;
+            ListNode temp2=node.next.next;
+            node.next.next=temp1;
+            node.next=temp2;
+            //交换完成
+            node=node.next.next;
+        }
+        return head.next;
+    }
+
+    public ListNode answer(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode node = new ListNode(0);
+        node.next=head;
+        head=node;
+        while (node.next!=null&&node.next.next!=null){
+            ListNode temp1=node.next,temp2=node.next.next;
+            node.next=temp2;
+            temp1.next=temp2.next;
+            temp2.next=temp1;
+            node=node.next.next;
+        }
+        return head.next;
+    }
+}
