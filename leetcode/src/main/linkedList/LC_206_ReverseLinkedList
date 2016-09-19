@@ -1,0 +1,20 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/19.
+ */
+public class LC_206_ReverseLinkedList {
+    public ListNode reverseList(ListNode head) {
+        if (head==null||head.next==null){
+            return head;
+        }
+        ListNode node=new ListNode(0);
+        while (head!=null){
+            ListNode temp=new ListNode(head.val);
+            temp.next=node.next;
+            node.next=temp;
+            head=head.next;
+        }
+        return node.next;
+    }
+}
