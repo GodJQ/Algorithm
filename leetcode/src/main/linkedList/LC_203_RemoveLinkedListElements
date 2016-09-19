@@ -1,0 +1,23 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/19.
+ */
+public class LC_203_RemoveLinkedListElements {
+    public ListNode removeElements(ListNode head, int val) {
+        if(head==null){
+            return null;
+        }
+        ListNode node=new ListNode(0);
+        node.next=head;
+        head=node;
+        while (node.next!=null){
+            if(node.next.val==val){
+                node.next=node.next.next;
+            }else {
+                node=node.next;
+            }
+        }
+        return head.next;
+    }
+}
