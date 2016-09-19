@@ -1,0 +1,55 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/8.
+ */
+public class LC_019_RemoveNthNodeFromEnd {
+    public ListNode removeNthFromEndTL(ListNode head, int n) {
+        ListNode node=head.next;
+        ListNode duplicate=head;
+        while(node!=null){
+            ListNode temp=node;
+            temp.next=duplicate.next;
+            duplicate.next=temp;
+            node=node.next;
+        }
+        while(n>0){
+            node=duplicate.next;
+            n--;
+        }
+        if (node!=null){
+            duplicate.next=node.next;
+        } else {
+            duplicate.next=null;
+        }
+        return duplicate.next;
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head.next==null){
+            return null;
+        }
+        int length=0;
+        ListNode node=head;
+        while (node!=null){
+            length++;
+            node=node.next;
+        }
+        int num=length-n;
+        if(num==0){
+            head=head.next;
+            return head;
+        }
+        node=head;
+        //找到要移除节点的前一个节点
+        while(num>1){
+            node=node.next;
+            num--;
+        }
+        if(n==1){
+            node.next=null;
+        }else
+        node.next=node.next.next;
+        return head;
+    }
+}
