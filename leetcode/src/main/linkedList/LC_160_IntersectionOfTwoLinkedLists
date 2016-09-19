@@ -1,0 +1,40 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/19.
+ */
+public class LC_160_IntersectionOfTwoLinkedLists {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null||headB==null){
+            return null;
+        }
+        ListNode nodeA=headA;
+        while (nodeA.next!=null){
+            nodeA=nodeA.next;
+        }
+        nodeA.next=headB;
+        ListNode intersection=detectCycle(headA);
+        nodeA.next=null;
+        return intersection;
+    }
+
+    public ListNode detectCycle(ListNode head){
+        if(head.next==null){
+            return null;
+        }
+        ListNode slower=head;
+        ListNode faster=head.next;
+        while (slower!=faster){
+            if(faster==null||faster.next==null){
+                return null;
+            }
+            slower=slower.next;
+            faster=faster.next.next;
+        }
+        while (head!=slower.next){
+            head=head.next;
+            slower=slower.next;
+        }
+        return head;
+    }
+}
