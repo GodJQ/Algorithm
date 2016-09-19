@@ -1,0 +1,93 @@
+package LeetCode;
+
+/**
+ * Created by GJQ on 2016/9/6.
+ */
+public class LC_012_IntegerToRoman {
+    public String intToRoman(int num) {
+        StringBuilder str=new StringBuilder();
+        int n=num/1000;
+        str.append(getThousands(n));
+        n=num/100%10;
+        str.append(getHundreds(n));
+        n=num/10%10;
+        str.append(getTensDigit(n));
+        n=num%10;
+        str.append(getUnitsDigit(n));
+        return str.toString();
+    }
+    String getThousands(int num){
+        String str="";
+        switch (num){
+            case 1:str="M";break;
+            case 2:str="MM";break;
+            case 3:str="MMM";
+        }
+        return str;
+    }
+    String getHundreds(int num){
+        String str="";
+        switch (num){
+            case 1:str="C";break;
+            case 2:str="CC";break;
+            case 3:str="CCC";break;
+            case 4:str="CD";break;
+            case 5:str="D";break;
+            case 6:str="DC";break;
+            case 7:str="DCC";break;
+            case 8:str="DCCC";break;
+            case 9:str="CM";
+        }
+        return str;
+    }
+    String getTensDigit(int num){
+        String str="";
+        switch (num){
+            case 1:str="X";break;
+            case 2:str="XX";break;
+            case 3:str="XXX";break;
+            case 4:str="XL";break;
+            case 5:str="L";break;
+            case 6:str="LX";break;
+            case 7:str="LXX";break;
+            case 8:str="LXXX";break;
+            case 9:str="XM";
+        }
+        return str;
+    }
+    String getUnitsDigit(int num){
+        String str="";
+        switch (num){
+            case 1:str="I";break;
+            case 2:str="II";break;
+            case 3:str="III";break;
+            case 4:str="IV";break;
+            case 5:str="V";break;
+            case 6:str="VI";break;
+            case 7:str="VII";break;
+            case 8:str="VIII";break;
+            case 9:str="IX";
+        }
+        return str;
+    }
+
+    public String answer(int num) {
+        if(num<=0){
+            return "";
+        }
+        int[] nums={1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String[] symbols={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        StringBuilder sb=new StringBuilder();
+        int digit=0;
+        while(num>0){
+            int times=num/nums[digit];
+            num-=nums[digit]*times;
+            while(times>0){
+                sb.append(symbols[digit]);
+                times--;
+            }
+            digit++;
+        }
+        return sb.toString();
+    }
+}
