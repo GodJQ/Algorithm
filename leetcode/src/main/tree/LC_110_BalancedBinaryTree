@@ -1,0 +1,100 @@
+package leetCode.tree;
+
+/**
+ * Created by GJQ on 2016/9/26.
+ * 判断是否是平衡二叉树
+ */
+public class LC_110_BalancedBinaryTree {
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (!isBalanced(root.left) || !isBalanced(root.right)) {
+            return false;
+        }
+        int difference = getDepth(root.left) - getDepth(root.right);
+        if (Math.abs(difference) > 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public int getDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = getDepth(root.left);
+        int right = getDepth(root.right);
+        return 1 + Math.max(left, right);
+    }
+
+    // Version 1: with ResultType
+
+    /**
+     * Definition of TreeNode:
+     * public class TreeNode {
+     * public int val;
+     * public TreeNode left, right;
+     * public TreeNode(int val) {
+     * this.val = val;
+     * this.left = this.right = null;
+     * }
+     * }
+     */
+    class ResultType {
+        public boolean isBalanced;
+        public int maxDepth;
+
+        public ResultType(boolean isBalanced, int maxDepth) {
+            this.isBalanced = isBalanced;
+            this.maxDepth = maxDepth;
+        }
+    }
+
+    /**
+     * @param root: The root of binary tree.
+     * @return: True if this Binary tree is Balanced, or false.
+     */
+    public boolean isBalanced_V1(TreeNode root) {
+        return helper(root).isBalanced;
+    }
+
+    private ResultType helper(TreeNode root) {
+        if (root == null) {
+            return new ResultType(true, 0);
+        }
+
+        ResultType left = helper(root.left);
+        ResultType right = helper(root.right);
+
+        // subtree not balance
+        if (!left.isBalanced || !right.isBalanced) {
+            return new ResultType(false, -1);
+        }
+
+        // root not balance
+        if (Math.abs(left.maxDepth - right.maxDepth) > 1) {
+            return new ResultType(false, -1);
+        }
+
+        return new ResultType(true, Math.max(left.maxDepth, right.maxDepth) + 1);
+    }
+
+    // Version 2: without ResultType
+    public boolean isBalanced_V2(TreeNode root) {
+        return maxDepth(root) != -1;
+    }
+
+    private int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1;
+        }
+        return Math.max(left, right) + 1;
+    }
+}
