@@ -1,0 +1,21 @@
+package leetCode.tree;
+
+/**
+ * Created by GJQ on 2016/9/29.
+ */
+public class LC_226_InvertBinaryTree {
+    public TreeNode invertTree(TreeNode root) {
+        invert(root);
+        return root;
+    }
+    public void invert(TreeNode root) {
+        if(root==null){
+            return;
+        }
+        TreeNode temp=root.left;
+        root.left=root.right;
+        root.right=temp;
+        invert(root.left);
+        invert(root.right);
+    }
+}
