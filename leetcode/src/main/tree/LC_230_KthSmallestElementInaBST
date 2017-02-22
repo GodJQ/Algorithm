@@ -1,0 +1,35 @@
+package leetCode.tree;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by GJQ on 2016/10/8.
+ */
+public class LC_230_KthSmallestElementInaBST {
+    public int kthSmallest(TreeNode root, int k) {
+        ArrayList<Integer> result=new ArrayList<Integer>();
+        preorder(result, root);
+        return result.get(k-1);
+    }
+
+    public void preorder(List<Integer> list,TreeNode root) {
+        if(root==null){
+            return;
+        }
+        preorder(list, root.left);
+        list.add(root.val);
+        preorder(list,root.right);
+    }
+
+    public class Solution {
+        int ct = 0;
+        public int kthSmallest(TreeNode root, int k) {
+            if(root == null) return 0;
+            int res = kthSmallest(root.left, k);
+            if(ct == k) return res;
+            else if(++ct == k) return root.val;
+            return kthSmallest(root.right, k);
+        }
+    }
+}
