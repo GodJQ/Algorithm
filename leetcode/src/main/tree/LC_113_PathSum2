@@ -1,0 +1,35 @@
+package leetCode.tree;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by GJQ on 2016/9/28.
+ */
+public class LC_113_PathSum2 {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        ArrayList<List<Integer>> result=new ArrayList<List<Integer>>();
+        addPath(root,sum,list,result);
+        return result;
+    }
+
+    public void addPath(TreeNode root, int sum,ArrayList list,ArrayList res) {
+        if(root==null){
+            return;
+        }
+        sum-=root.val;
+        if (root.left==null&&root.right==null){
+            if(sum==0){
+                list.add(root.val);
+                res.add(new ArrayList<>(list));
+                list.remove(list.size()-1);
+            }
+            return;
+        }
+        list.add(root.val);
+        addPath(root.left, sum, list,res);
+        addPath(root.right, sum, list,res);
+        list.remove(list.size()-1);
+    }
+}
