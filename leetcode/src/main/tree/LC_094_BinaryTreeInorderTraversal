@@ -1,0 +1,24 @@
+package LeetCode.Tree;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by GJQ on 2016/10/8.
+ */
+public class LC_094_BinaryTreeInorderTraversal {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> result=new ArrayList<Integer>();
+        inorder(result,root);
+        return result;
+    }
+
+    public void inorder(List<Integer> list,TreeNode root) {
+        if(root==null){
+            return;
+        }
+        inorder(list, root.left);
+        list.add(root.val);
+        inorder(list, root.right);
+    }
+}
