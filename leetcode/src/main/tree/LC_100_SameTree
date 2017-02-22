@@ -1,0 +1,32 @@
+package LeetCode.Tree;
+
+/**
+ * Created by GJQ on 2016/9/22.
+ * 递归比较子节点是否相同
+ */
+public class LC_100_SameTree {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p==null&&q==null){
+            return true;
+        }
+        if((p==null&&q!=null)||(p!=null&&q==null)){
+            return false;
+        }
+        if(p.val!=q.val){
+            return false;
+        }
+        if(!isSameTree(p.left,q.left)||!isSameTree(p.right,q.right)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean answer(TreeNode p, TreeNode q) {
+        if(p==null&&q==null){
+            return true;
+        } else if(p==null||q==null){
+            return false;
+        }
+        return p.val==q.val && isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+    }
+}
