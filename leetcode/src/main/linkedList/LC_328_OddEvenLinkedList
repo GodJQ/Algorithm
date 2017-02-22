@@ -1,0 +1,29 @@
+package LeetCode.linkedList;
+
+/**
+ * Created by GJQ on 2016/9/20.
+ * 题意理解错误，正确题意是：对一个链表，把位置是偶数的接在位置是奇数的位置后面
+ */
+public class LC_328_OddEvenLinkedList {
+    public ListNode oddEvenList(ListNode head) {
+        if(head==null||head.next==null){
+            return head;
+        }
+        ListNode oddHead=new ListNode(0),odd=oddHead;
+        ListNode evenHead=new ListNode(0),even=evenHead;
+        while (head!=null&&head.next!=null){
+            odd.next=head;
+            even.next=head.next;
+            odd=odd.next;
+            even=even.next;
+            head=head.next.next;
+        }
+        if(head!=null){
+            odd.next=head;
+            even.next=null;
+            odd=odd.next;
+        }
+        odd.next=evenHead.next;
+        return oddHead.next;
+    }
+}
