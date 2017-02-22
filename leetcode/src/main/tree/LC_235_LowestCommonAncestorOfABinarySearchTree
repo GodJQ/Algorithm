@@ -1,0 +1,44 @@
+package leetCode.tree;
+
+/**
+ * Created by GJQ on 2016/10/8.
+ */
+public class LC_235_LowestCommonAncestorOfABinarySearchTree {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root==null){
+            return root;
+        }
+        if((root.val>=p.val&&root.val<=q.val)||(root.val<=p.val&&root.val>=q.val)){
+            return root;
+        }
+        if(lowestCommonAncestor(root.left,p,q)!=null){
+            return lowestCommonAncestor(root.left, p, q);
+        }
+        if(lowestCommonAncestor(root.right,p,q)!=null) {
+            return lowestCommonAncestor(root.right, p, q);
+        }
+        return null;
+    }
+
+    public TreeNode answer(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null||root==p||root==q){
+            return root;
+        }
+
+        //Devide
+        TreeNode left=answer(root.left,p,q);
+        TreeNode right=answer(root.right,p,q);
+
+        //Conquer
+        if(left!=null&&right!=null){
+            return root;
+        }
+        if(left!=null){
+            return left;
+        }
+        if(right!=null){
+            return right;
+        }
+        return null;
+    }
+}
