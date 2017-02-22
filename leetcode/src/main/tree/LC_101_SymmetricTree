@@ -1,0 +1,23 @@
+package leetCode.tree;
+
+/**
+ * Created by GJQ on 2016/9/23.
+ * 可以把问题简化为比较两棵子树是否为镜像
+ */
+public class LC_101_SymmetricTree {
+    public boolean isSymmetric(TreeNode root) {
+        if(root==null){
+            return true;
+        }
+        return isMirror(root.left,root.right);
+    }
+
+    public boolean isMirror(TreeNode p,TreeNode q){
+        if (p==null && q==null){
+            return true;
+        }else if (p==null||q==null ){
+            return false;
+        }
+        return p.val==q.val && isMirror(p.left,q.right) && isMirror(p.right,q.left);
+    }
+}
