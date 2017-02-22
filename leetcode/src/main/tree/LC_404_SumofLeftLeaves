@@ -1,0 +1,19 @@
+package leetCode.tree;
+
+/**
+ * Created by GJQ on 2016/10/8.
+ */
+public class LC_404_SumofLeftLeaves {
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum=0;
+        if (root==null){
+            return sum;
+        }
+        if (root.left!=null&&root.left.left==null&&root.left.right==null){
+            sum+=root.left.val;
+        }
+        sum+=sumOfLeftLeaves(root.left);
+        sum+=sumOfLeftLeaves(root.right);
+        return sum;
+    }
+}
