@@ -1,0 +1,41 @@
+package leetCode.tree;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by GJQ on 2016/10/8.
+ */
+public class LC_257_BinaryTreePaths {
+    public List<String> binaryTreePaths(TreeNode root) {
+        ArrayList<String> result = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        addPath(result,sb,root);
+        return result;
+    }
+
+    public void addPath(ArrayList<String> result, StringBuilder sb, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        int length=sb.length();
+        if (root.left == null && root.right == null) {
+            if (length==0){
+                sb.append(root.val);
+            }else {
+                sb.append("->" + root.val);
+            }
+            result.add(sb.toString());
+            sb.delete(length,sb.length());
+            return;
+        }
+        if (length==0){
+            sb.append(root.val);
+        }else {
+            sb.append("->" + root.val);
+        }
+        addPath(result,sb,root.left);
+        addPath(result,sb,root.right);
+        sb.delete(length,sb.length());
+    }
+}
