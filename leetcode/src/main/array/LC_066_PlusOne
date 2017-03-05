@@ -1,0 +1,52 @@
+package leetCode.array;
+
+/**
+ * Created by GJQ on 2016/10/9.
+ */
+public class LC_066_PlusOne {
+    public int[] plusOne(int[] digits) {
+        int length=digits.length;
+        digits[length-1]+=1;
+        int sign=0;
+        for (int i = 0; i < length; i++) {
+            if(sign+digits[length-1-i]==10){
+                sign=1;
+                digits[length-1-i]=0;
+            }else {
+                digits[length-1-i]+=sign;
+                break;
+            }
+        }
+        if(digits[0]==0){
+            int[] answer=new int[length+1];
+            answer[0]=1;
+            answer[1]=0;
+            for (int i = 2; i < length+1; i++) {
+                answer[i]=digits[i-1];
+            }
+            return answer;
+        }else {
+            return digits;
+        }
+    }
+
+    public int[] answer(int[] digits) {
+        int sign=1;
+        for (int i = digits.length-1;sign==1 && i > 0; i--) {
+            int sum=digits[i]+sign;
+            digits[i]=sum%10;
+            sign=sum/10;
+        }
+        if(sign==0){
+            return digits;
+        }
+        int[] res=new int[digits.length+1];
+        res[0]=1;
+        res[1]=0;
+        for (int i = 2; i < digits.length+1; i++) {
+            res[i]=digits[i-1];
+        }
+        return res;
+    }
+
+}
