@@ -1,0 +1,65 @@
+package leetCode.array;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by GJQ on 2017/3/5.
+ */
+public class LC_283_MoveZeroes {
+    public void lc_283_moveZeroes_TL(int[] nums) {
+        boolean isSwap = false;
+        int firstSwap = 0;
+        for (int i = 0; i < nums.length; i = i++ > firstSwap ? i++ : firstSwap) {
+            for (int j = 0; j < nums.length - i - 1; j++) {
+                if (nums[j] == 0) {
+                    swap(nums, j, j + 1);
+                    if (!isSwap) {
+                        firstSwap = j;
+                        isSwap = true;
+                    }
+                }
+            }
+            if (!isSwap) break;
+            isSwap = false;
+        }
+    }
+
+    public void lc_283_moveZeroes_Ans(int[] nums) {
+        if(nums==null||nums.length==0){
+            return;
+        }
+
+        int insertPos=0;
+        for (int n : nums){
+            if(n!=0){
+                nums[insertPos++]=n;
+            }
+        }
+        for (int i = insertPos; i < nums.length; i++) {
+            nums[i]=0;
+        }
+    }
+
+    public void lc_283_moveZeroes(int[] nums) {
+        boolean isSwap = false;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < nums.length - i - 1; j++) {
+                if (nums[j] == 0) {
+                    swap(nums, j, j + 1);
+                    if (!isSwap) {
+                        isSwap = true;
+                    }
+                }
+            }
+            if (!isSwap) break;
+            isSwap = false;
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
