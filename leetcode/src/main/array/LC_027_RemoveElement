@@ -1,0 +1,28 @@
+package leetCode.array;
+
+/**
+ * Created by GJQ on 2016/10/14.
+ */
+public class LC_027_RemoveElement {
+    public int removeElement(int[] nums, int val) {
+        int length=nums.length;
+        for (int i=0;i<length;i++){
+            if(nums[i]==val){
+                for (int j=i;j<length-1;j++){
+                    nums[j]=nums[j+1];
+                }
+                length--;
+                i--;
+            }
+        }
+        return length;
+    }
+
+    public int answer(int[] nums, int val) {
+        int index = 0;
+        for (int i = 0; i < nums.length; i++)
+            if (nums[i] != val)
+                nums[index++] = nums[i];
+        return index;
+    }
+}
